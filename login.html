@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repostería Sweet Paradise</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background:#ff6f61;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        nav {
+            background-color: #ff6f61;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .login-container {
+            max-width: 500px;
+            margin: 150px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-container h2 {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+
+        .login-container form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-container label {
+            margin: 10px 0 5px;
+        }
+
+        .login-container input {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .login-container input[type="submit"], .login-container button {
+            margin-top: 15px;
+            padding: 10px;
+            border: none;
+            background-color: #ff6f61;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-container input[type="submit"]:hover, .login-container button:hover {
+            background-color: #e55b4c;
+        }
+
+        .login-container a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #ff6f61;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Repostería Sweet Paradise</h1>
+</header>
+
+<nav>
+    <a href="inicio.html">Inicio</a>
+    <a href="login.html">Iniciar Sesión</a>
+    <a href="Sobre nosotras.html">Sobre Nosotras</a>
+    <a href="categoria.html">Categoría</a>
+    <a href="pedido_producto.html">Pedido</a>
+    <a href="factura.html">Factura</a>
+</nav>
+
+<main>
+    <!-- Sección de Registro -->
+    <section id="registro">
+        <div class="login-container">
+            <h2>Registro de Usuario</h2>
+            <form action="recibe.php" method="POST">
+              <label for="id_usuario">Id_usuario:</label>
+              <input type="text" id="id_usuario" name="id_usuario" required placeholder="Ingresa tu ID">
+          
+              <label for="nombre">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu nombre completo">
+          
+              <label for="contrasena">Contraseña:</label>
+              <input type="password" id="contrasena" name="contrasena" required placeholder="Ingresa tu contraseña">
+          
+              <!-- ✅ Cambiado a submit -->
+              <button type="button" onclick="guardarUsuario()">Guardar</button>
+          
+              <!-- Los otros botones pueden seguir siendo tipo button -->
+              <button type="button" onclick="eliminarUsuario()">Eliminar Usuario</button>
+              <button type="button" onclick="listar()">Listar</button>
+          
+              <a href="#">¿Olvidaste la contraseña?</a>
+          </form>
+          
+        </div>
+    </section>
+</main>
+
+<script>
+    // Funciones de los botones: Guardar, Eliminar y Listar
+
+    
+    function guardarUsuario() {
+  const id = document.getElementById('id_usuario').value;
+  const nombre = document.getElementById('nombre').value;
+  const contrasena = document.getElementById('contrasena').value;
+
+  if (!id || !nombre || !contrasena) {
+    alert("⚠️ Todos los campos son obligatorios.");
+    return;
+  }
+
+  fetch('recibe.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `id_usuario=${encodeURIComponent(id)}&nombre=${encodeURIComponent(nombre)}&contrasena=${encodeURIComponent(contrasena)}`
+  })
+  .then(response => response.text())
+  .then(data => {
+    alert("✅ Usuario guardado correctamente.");
+    window.location.href = "categoria.html"; // ⬅️ Redirige a la página deseada
+  })
+  .catch(error => {
+    console.error('Error al guardar:', error);
+    alert('❌ Error al intentar guardar el usuario.');
+  });
+}
+
+
+
+
+    function eliminarUsuario() {
+  const id = document.getElementById('id_usuario').value;
+
+  if (!id) {
+    alert("⚠️ Por favor ingresa un ID de usuario antes de eliminar.");
+    return;
+  }
+
+  if (confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+    fetch('eliminar.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'id_usuario=' + encodeURIComponent(id)
+    })
+    .then(response => {
+      if (response.redirected) {
+        window.location.href = response.url;
+      } else {
+        return response.text().then(text => {
+          if (text) alert(text); // Mensaje de error o éxito
+        });
+      }
+    })
+    .catch(error => {
+      console.error('Error al eliminar:', error);
+      alert('❌ Error al intentar eliminar el usuario.');
+    });
+  }
+}
+
+
+    function listar() {
+        // Aquí puedes agregar la lógica para listar los registros guardados
+     
+        window.location.href = "listar.php";
+    }
+</script>
+
+</body>
+</html>
+
+
+

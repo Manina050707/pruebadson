@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura Especial - Sweet Paradise</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff3e0;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            text-align: center;
+            color: #ff6f61;
+        }
+
+
+        header {
+            background: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        nav {
+            background-color: #ff6f61;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+        
+        .factura {
+            padding: 20px;
+            background: linear-gradient(135deg, #ff6f61, #ffab91);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .btn-primary {
+            background-color: #ff6f61;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #e55b4c;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+    <header>
+        <h1>Repostería Sweet Paradise</h1>
+    </header>
+
+    <nav>
+        <nav>
+            <a href="inicio.html">Inicio </a>
+            <a href="login.html">Iniciar Sesión</a>
+            <a href="Sobre nosotras.html">Sobre Nosotras</a>
+            <a href="categoria.html">Categoria</a>
+            <a href="pedido_producto.html">Pedido</a>
+            <a href="factura.html">Factura</a>
+        </nav>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Factura Especial - Sweet Paradise</h2>
+        <form id="facturaForm">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre Completo</label>
+                <input type="text" class="form-control" id="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" required>
+            </div>
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección</label>
+                <input type="text" class="form-control" id="direccion" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Seleccionar Productos y Cantidades</label>
+                <div id="productosContainer"></div>
+            </div>
+            <div class="factura">
+                <h3>Detalle de la Factura</h3>
+                <ul id="detalleFactura"></ul>
+                <p><strong>Total:</strong> <span id="total">$0</span> COP</p>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-3">Generar Factura</button>
+        </form>
+    </div>
+
+    <script>
+        const productos = [
+            { nombre: "Postre de maracuyá", precio: 30000 },
+            { nombre: "Fiesta tropical", precio: 25000 },
+            { nombre: "Helado y oblea", precio: 30000 },
+            { nombre: "Tarta de frambuesa", precio: 22000 },
+            { nombre: "Mousse de chocolate", precio: 18000 },
+            { nombre: "Pastel de zanahoria", precio: 23000 },
+            { nombre: "Tiramisú", precio: 28000 },
+            { nombre: "Cheesecake de frutos rojos", precio: 30000 },
+            { nombre: "Brownie de chocolate", precio: 12000 },
+            { nombre: "Cupcakes de vainilla", precio: 8000 },
+            { nombre: "Galletas de avena", precio: 6000 },
+            { nombre: "Muffins de manzana y canela", precio: 10000 }
+        ];
+
+        function cargarProductos() {
+            const container = document.getElementById("productosContainer");
+            container.innerHTML = "";
+            
+            productos.forEach((producto, index) => {
+                const div = document.createElement("div");
+                div.classList.add("mb-2");
+                div.innerHTML = `
+                    <input type="checkbox" id="producto${index}" data-precio="${producto.precio}" onchange="actualizarTotal()">
+                    <label for="producto${index}">${producto.nombre} - $${producto.precio.toLocaleString()} COP</label>
+                    <input type="number" id="cantidad${index}" min="1" value="1" class="ms-2" style="width: 60px;" onchange="actualizarTotal()" disabled>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function actualizarTotal() {
+            let total = 0;
+            let detalleFactura = document.getElementById('detalleFactura');
+            detalleFactura.innerHTML = '';
+            
+            productos.forEach((producto, index) => {
+                const checkbox = document.getElementById(`producto${index}`);
+                const cantidadInput = document.getElementById(`cantidad${index}`);
+                
+                if (checkbox.checked) {
+                    cantidadInput.disabled = false;
+                    let cantidad = parseInt(cantidadInput.value) || 1;
+                    let subtotal = producto.precio * cantidad;
+                    total += subtotal;
+                    
+                    let li = document.createElement('li');
+                    li.textContent = `${producto.nombre} x${cantidad} - $${subtotal.toLocaleString()} COP`;
+                    detalleFactura.appendChild(li);
+                } else {
+                    cantidadInput.disabled = true;
+                    cantidadInput.value = 1;
+                }
+            });
+            
+            document.getElementById('total').textContent = `$${total.toLocaleString()} COP`;
+        }
+
+        document.addEventListener("DOMContentLoaded", cargarProductos);
+    </script>
+</body>
+</html>

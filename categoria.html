@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<style></style> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABJ6zR6eW8i5a12S0QekMmN6tb1p4bqPxwAXp6au03pmxwZ4Y68vV8R1" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repostería Sweet Paradise</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+
+        header {
+            background: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        nav {
+            background-color: #ff6f61;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .productos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .producto {
+            width: 300px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .producto img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .producto h3 {
+            margin: 10px 0;
+            color: #ff6f61;
+        }
+
+        .producto p {
+            padding: 0 15px 15px;
+            color: #555;
+        }
+
+        .producto img {
+            max-width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .carousel-inner img {
+            width: 600px;
+            height: 400px;
+            object-fit: cover;
+            margin: auto;
+        }
+
+        .carrito {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .carrito h2 {
+            text-align: center;
+            color: #ff6f61;
+        }
+
+        .carrito ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .carrito li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .carrito li span {
+            font-size: 16px;
+        }
+
+        .carrito button {
+            background-color: #ff6f61;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .carrito button:hover {
+            background-color: #e55b4c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Repostería Sweet Paradise</h1>
+    </header>
+
+    <nav>
+        <a href="inicio.html">Inicio </a>
+        <a href="login.html">Iniciar Sesión</a>
+        <a href="Sobre nosotras.html">Sobre Nosotras</a>
+        <a href="categoria.html">Categoria</a>
+        <a href="pedido_producto.html">Pedido</a>
+        <a href="factura.html">Factura</a>
+    </nav>
+
+    <main>
+        <div class="productos">
+            <div class="producto">
+                <img src="postre 1.jpg" alt="Postre de maracuyá">
+                <h3>Postre de maracuyá</h3>
+                <p>Cada porción es un viaje de sabores que te transportará a la infancia. No esperes más y disfruta de esta exquisita receta.</p>
+                <p class="precio">$30,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Postre de maracuyá', 30000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="postre 8.webp" alt="Fiesta tropical">
+                <h3>Fiesta tropical</h3>
+                <p>Un equilibrio perfecto entre lo dulce y lo natural. Anímate a prepararlo siguiendo nuestra receta detallada.</p>
+                <p class="precio">$25,000 COP</p>
+                <button class="btn-contacto" onclick="carrito.html('Fiesta tropical', 25000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="postre 10.jpeg" alt="Helado y oblea">
+                <h3>Helado y oblea</h3>
+                <p>Una combinación única que despertará tus sentidos. ¡Prepárate para una experiencia inolvidable!</p>
+                <p class="precio">$30,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Helado y oblea', 30000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="tarta-de-frambuesas-y-ciruelas-1.jpg" alt="Tarta de frambuesa">
+                <h3>Tarta de frambuesa</h3>
+                <p>Una tarta suave con un toque ácido de frambuesa, perfecta para cualquier ocasión especial.</p>
+                <p class="precio">$22,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Tarta de frambuesa', 22000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="mousse cho.jpg" alt="Mousse de chocolate">
+                <h3>Mousse de chocolate</h3>
+                <p>Una deliciosa mousse que derretirá tu paladar, con el sabor más intenso de chocolate.</p>
+                <p class="precio">$18,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Mousse de chocolate', 18000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="postre 4.jpg" alt="Pastel de zanahoria">
+                <h3>Pastel de zanahoria</h3>
+                <p>Un pastel suave con especias y zanahorias frescas, cubierto con un glaseado cremoso.</p>
+                <p class="precio">$23,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Pastel de zanahoria', 23000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="tiramisu.avif" alt="Tiramisú">
+                <h3>Tiramisú</h3>
+                <p>Un clásico italiano, delicioso y lleno de sabor, con capas de café y mascarpone.</p>
+                <p class="precio">$28,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Tiramisú', 28000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="Cheesecake de frutos rojos.jpg" alt="Cheesecake de frutos rojos">
+                <h3>Cheesecake de frutos rojos</h3>
+                <p>Un cheesecake cremoso y suave, con una capa de frutos rojos frescos y una base crujiente.</p>
+                <p class="precio">$30,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Cheesecake de frutos rojos', 30000)">Agregar al carrito</button>
+
+            </div>
+            <div class="producto">
+                <img src="brownie-chocolate.jpg" alt="Brownie de chocolate">
+                <h3>Brownie de chocolate</h3>
+                <p>Un delicioso brownie con trozos de chocolate, que se derrite en tu boca con cada bocado.</p>
+                <p class="precio">$12,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Brownie de chocolate', 12000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="CUPCAKES-DE-VAINILLA-Y-FROSTING-DE-QUESO-CREMA.jpg" alt="Cupcakes de vainilla">
+                <h3>Cupcakes de vainilla</h3>
+                <p>Pequeños y deliciosos, estos cupcakes son suaves, esponjosos y cubiertos con un glaseado cremoso.</p>
+                <p class="precio">$8,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Cupcakes de vainilla', 8000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="galletas-de-avena-y-platano_4a1c53d7_1200x630.jpg" alt="Galletas de avena">
+                <h3>Galletas de avena</h3>
+                <p>Deliciosas galletas hechas con avena, perfectas para acompañar con tu bebida favorita.</p>
+                <p class="precio">$6,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Galletas de avena', 6000)">Agregar al carrito</button>
+            </div>
+            <div class="producto">
+                <img src="I22GH7FICNBPPJJIOOSK2222WQ.avif" alt="Muffins de manzana y canela">
+                <h3>Muffins de manzana y canela</h3>
+                <p>El sabor suave de la manzana se mezcla con el toque cálido de la canela en estos muffins deliciosos.</p>
+                <p class="precio">$10,000 COP</p>
+                <button class="btn-contacto" onclick="agregarAlCarrito('Muffins de manzana y canela', 10000)">Agregar al carrito</button>
+            </div>
+        </div>
+        <style>
+            .btn-contacto {
+                background-color: #ff6f61;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px; 
+                font-weight: bold; 
+                cursor: pointer; 
+                transition: background-color 0.3s ease; 
+            }
+        
+            .btn-contacto:hover {
+                background-color: #e55b4c; 
+            }
+        </style>
+
+
+        <div class="carrito">
+            <h2>Mi Carrito</h2>
+            <ul id="carritoItems"></ul>
+            <p id="totalCarrito" style="text-align: center; font-weight: bold;">Total: $0.00</p>
+            <button onclick="finalizarCompra()">Finalizar Compra</button>
+        </div>
+    </main>
+
+    <script>
+        let carrito = [];
+
+        
+        function agregarAlCarrito(nombre, precio) {
+            carrito.push({ nombre, precio });
+            mostrarCarrito();
+        }
+
+       
+        function mostrarCarrito() {
+            const carritoElement = document.getElementById('carritoItems');
+            const totalElement = document.getElementById('totalCarrito');
+            carritoElement.innerHTML = '';
+
+            let total = 0;
+            carrito.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `${item.nombre} - $${item.precio.toFixed(2)} 
+                    <button onclick="eliminarProducto(${index})" style="background-color: #e55b4c; color: white; border: none; border-radius: 5px; padding: 5px 10px; cursor: pointer;">Eliminar</button>`;
+                carritoElement.appendChild(li);
+                total += item.precio;
+            });
+
+            totalElement.innerHTML = `Total: $${total.toFixed(2)}`;
+        }
+
+        
+        function eliminarProducto(index) {
+            carrito.splice(index, 1); 
+            mostrarCarrito();
+        }
+
+        
+        function finalizarCompra() {
+            if (carrito.length === 0) {
+                alert('Tu carrito está vacío. Agrega productos antes de finalizar.');
+                return;
+            }
+
+            alert('Gracias por tu compra!');
+            carrito = [];
+            mostrarCarrito();
+        }
+    </script>
+</body>
+</html>
+</body>
+</html>
